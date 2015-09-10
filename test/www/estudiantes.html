@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+	<html>
+		<head>
+			<!--Import angularJS CDN-->
+			<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+
+      <meta charset="UTF-8">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>		
+		</head>
+
+		<body class="grey" ng-app="myApp" background="media/estudiantes.jpg" style="background-repeat: no-repeat; background-position:top center;">
+
+    	<!--Panel-->
+      <div class="navbar-fixed">
+      	<nav class="grey darken-4 z-depth-4">
+      <!--SideNav-->
+          <div class="nav-wrapper">
+            <a href="#" class="brand-logo center green-text lighten-2">DEPORTENVIVO</a>
+            <ul id="slide-out" class="side-nav grey darken-4">
+              <li><a href="index.html" class="brand-logo"></a>CATEGORIAS</li>
+              <li><a href="rest1.html" class="green-text">FUTBOL</a></li>
+              <li><a href="river.html" class="green-text">RIVER PLATE</a></li>
+              <li><a href="boca.html" class="green-text">BOCA JRS</a></li>
+              <div class="divider"></div>
+              <li><a href="automovilismo.html" class="green-text">AUTOMOVILISMO</a></li>
+            </ul>
+            <a href="#" data-activates="slide-out" class="button-collapse show-on-large">
+              <i class="small mdi-navigation-menu grey-text text-darken-2"></i>
+            </a>
+          </div>
+        </nav>
+      </div>
+			<div class="card-panel center-align">
+				<span class="blue-text text-darken-2"><h5>ESTUDIANTES DE LA PLATA</h5></span>
+			</div>
+
+			<div ng-controller="estudiantes" class="container">
+				<ul class="collapsible popout" data-collapsible="accordion">
+					<li class="blue-text" ng-repeat="indivisual in members">
+						<div class="collapsible-header center-align">{{indivisual.Nombre.text}}</div>
+						<div class="collapsible-body">
+ 							<table class="red darken-4 white-text">
+								<tbody>
+									<tr>
+										<td>Posicion: {{indivisual.Posicion}}</td>
+										<td>Edad: {{indivisual.Edad}}</td>
+										<td>Goles: {{indivisual.Goles}}</td>
+										<td>Amarillas: {{indivisual.Amarillas}}</td>
+										<td>Rojas: {{indivisual.Rojas}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</li>					
+				</ul>
+			</div>
+
+
+
+  <!--Import jQuery before materialize.js-->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="js/materialize.js"></script>
+  <script>
+    $(".button-collapse").sideNav({
+      closeOnClick: true
+    });
+  </script>
+  	<script>
+		var app = angular.module('myApp', []);
+		app.controller('estudiantes', function($scope, $http, $timeout) {
+		$http.get('list_estud.json')
+		.success(function(response) {$scope.members = response.results.collection1;
+			$timeout(function() {
+				$('.collapsible').collapsible({});
+			}, 500);		
+			});
+		});
+	</script>
+  	
+</body>
+</html>

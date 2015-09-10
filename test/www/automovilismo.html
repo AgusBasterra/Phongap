@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+	<html>
+		<head>
+			<!--Import angularJS CDN-->
+			<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+
+      <meta charset="UTF-8">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>		
+		</head>
+
+		<body class="grey" ng-app="myApp" background="media/nascar.jpg" style="background-repeat: no-repeat; background-position:top center;"
+
+    	<!--Panel-->
+      <div class="navbar-fixed">
+      	<nav class="grey darken-4 z-depth-4">
+      <!--SideNav-->
+          <div class="nav-wrapper">
+            <a href="#" class="brand-logo center green-text lighten-2">DEPORTE EN VIVO</a>
+            <ul id="slide-out" class="side-nav grey darken-4">
+              <li><a href="index.html" class="brand-logo"></a>CATEGORIAS</li>
+              <li><a href="rest1.html" class="green-text">FUTBOL</a></li>
+            </ul>
+            <a href="#" data-activates="slide-out" class="button-collapse show-on-large">
+              <i class="small mdi-navigation-menu grey-text text-darken-2"></i>
+            </a>
+          </div>
+        </nav>
+      </div>
+
+<!--       <div ng-controller="customersCtrl" class="container">
+      	<ul class="collection" ng-repeat="x in names">
+      		<li class="collection-item">{{x.Position}}</li>
+      		<li class="collection-item">{{x.Driver.text}}</li>
+      	</ul>
+      </div> -->
+
+			<div class="card-panel center-align">
+				<span class="blue-text text-darken-2"><h5>Nascar Sprint Cup</h5></span>
+			</div>
+
+ 			<div ng-controller="customersCtrl" class="container">
+				<table class="grey darken-4 green-text z-depth-2 centered">
+					<thead>
+						<tr>	
+							<th data-field="conductor"><h5>Nombre</h5></th>
+							<th data-field="posicion"><h5>Posicion</h5></th>
+							<th data-field="puntos"><h5>Puntos</h5></th>
+							<th data-field="detras"><h5>Diferencia</h5></th>
+  					</tr>
+  				</thead>
+  				<tbody>
+  					<tr ng-repeat="x in names">
+  						<td class="z-depth-1">{{x.Driver.text}}</td>
+  						<td class="z-depth-1">{{x.Position}}</td>
+  						<td class="z-depth-1">{{x.Points}}</td>
+  						<td class="z-depth-1">{{x.Behind}}</td>
+  					</tr>
+  				</tbody>
+				</table>
+			</div>
+
+	<script>
+		var app = angular.module('myApp', []);
+		app.controller('customersCtrl', function($scope, $http) {
+   		$http.get('list_nascar.json')	
+   		.success(function(response) {$scope.names = response.results.collection1});
+		});
+	</script>
+
+  <!--Import jQuery before materialize.js-->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="js/materialize.js"></script>
+  <script>
+    $(".button-collapse").sideNav({
+      closeOnClick: true
+    });
+  </script>
+</body>
+</html>
